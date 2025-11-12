@@ -46,7 +46,7 @@ obc_gs_error_code_t packTelemetry(const telemetry_data_t *data, uint8_t *buffer,
 
   packUint8(telemLengths[data->id], buffer, &offset); // Pack the length
 
-  packUint8(sequence, buffer, &offset); // Pack the sequence
+  packUint8(sequence << 4, buffer, &offset); // Pack the sequence
 
   // Header end
 
