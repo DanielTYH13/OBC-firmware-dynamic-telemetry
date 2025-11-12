@@ -25,7 +25,7 @@ obc_gs_error_code_t packTelemetry(const telemetry_data_t *data, uint8_t *buffer,
     return OBC_GS_ERR_CODE_INVALID_ARG;
   }
 
-  if (len < MAX_TELEMETRY_DATA_SIZE) {
+  if (len < MAX_TELEMETRY_DATA_SIZE + MAX_TELEMETRY_DATA_SIZE) {
     return OBC_GS_ERR_CODE_BUFF_TOO_SMALL;
   }
 
@@ -33,16 +33,26 @@ obc_gs_error_code_t packTelemetry(const telemetry_data_t *data, uint8_t *buffer,
     return OBC_GS_ERR_CODE_INVALID_ARG;
   }
 
-  uint32_t offset = 0;
+  uint32_t offset = 0;  
+  Telemetry_Length TELEMETRY_LENGTH = data->id; 
+ 
+  // Header start
 
-  // Pack the telemetry ID
-  packUint8(data->id, buffer, &offset);
+  packUint8(data->id, buffer, &offset); // Pack the telemetry ID
 
-  // Pack the timestamp
-  packUint32(data->timestamp, buffer, &offset);
+  packUint8(TELEMETRY_LENGTH, buffer, &offset); // Pack the length
 
-  // Pack the telemetry parameters
-  telemPackFns[data->id](data, buffer, &offset);
+  packUint8((data->sequence) << 4, buffer, &offset); // Pack the sequence
+
+  // Header end
+
+  // Telemetry start
+
+  packUint32(data->timestamp, buffer, &offset);  // Pack the timestamp
+
+  telemPackFns[data->id](data, buffer, &offset); // Pack the telemetry parameters
+
+  // Telemetry end
 
   *numPacked = offset;
 

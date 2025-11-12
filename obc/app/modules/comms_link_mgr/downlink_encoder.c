@@ -309,10 +309,10 @@ static obc_error_code_t sendOrPackNextTelemetry(telemetry_data_t *singleTelem, p
                                                 size_t *telemPacketOffset) {
   obc_error_code_t errCode;
 
-  uint8_t packedSingleTelem[MAX_TELEMETRY_DATA_SIZE];  // Holds a serialized
-                                                       // version of the current
-                                                       // piece of telemetry
-  uint32_t packedSingleTelemSize = 0;                  // Size of the packed single telemetry
+  uint8_t packedSingleTelem[MAX_TELEMETRY_DATA_SIZE + MAX_HEADER_DATA_SIZE];  // Holds a serialized
+                                                                              // version of the current
+                                                                              // piece of telemetry and its header
+  uint32_t packedSingleTelemSize = 0;                                         // Size of the packed single telemetry and its header
 
   // Pack the single telemetry into a uint8_t array
   if (packTelemetry(singleTelem, packedSingleTelem, sizeof(packedSingleTelem) / sizeof(uint8_t),

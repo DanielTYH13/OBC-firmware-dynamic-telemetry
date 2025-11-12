@@ -5,6 +5,11 @@
 #include <stdint.h>
 #include <stddef.h>
 
+enum Telemetry_Length{
+    [TELEM_OBC_TEMP] = sizeof(float),
+    [TELEM_OBC_STATE] = sizeof(uint8_t)
+};
+
 typedef struct {
   union {
     // Temperature values
@@ -46,4 +51,13 @@ typedef struct {
 
 } telemetry_data_t;
 
+typedef struct {
+  union {
+    uint8_t length;
+    uint8_t sequence;
+  }; 
+
+} telemetry_header_t;
+
 #define MAX_TELEMETRY_DATA_SIZE sizeof(telemetry_data_t)
+#define MAX_HEADER_DATA_SIZE sizeof(telemetry_header_t)
