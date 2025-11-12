@@ -1,5 +1,5 @@
 /**
- * Styling constants for the MCC frontend - colors and font
+ * Styling constants for the ARO frontend - colors and font
  */
 
 const COLORS = {

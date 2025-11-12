@@ -1,29 +1,32 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./app.css";
-import Navbar from "./common/navbar.tsx";
-import NotFound from "./common/not-found.tsx";
-import Home from "./home/home.tsx";
-import NewRequestForm from "./new-request/new-request-form.tsx";
-import Profile from "./profile/profile.tsx";
-import Requests from "./requests/requests.tsx";
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Nav from "./components/Nav";
+import Background from "./components/Background";
+import NewRequestForm from "./components/new-request/new-request-form.tsx";
 
-const queryClient = new QueryClient();
-
+/**
+ * @brief App component displaying the main application
+ * @return tsx element of App component
+ */
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/new-request" element={<NewRequestForm />} />
-          <Route path="/requests" element={<Requests />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <>
+      <Nav />
+      <Background />
+      <Routes>
+        {/* uncomment these routes as the pages are created */}
+        {/* <Route path="*" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/commands" element={<Commands />} />
+        <Route path="/new-request" element={<NewRequestForm />} />
+        <Route path="/requests" element={<Requests />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} /> */}
+        {<Route path="/new-request" element={<NewRequestForm />} />}
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 
