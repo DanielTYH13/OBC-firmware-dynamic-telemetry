@@ -3,6 +3,7 @@
 #include "obc_board_config.h"
 #include "obc_gs_ax25.h"
 #include "obc_gs_commands_response.h"
+#include "obc_gs_telemetry_data.h" 
 #include "obc_gs_fec.h"
 
 #include "obc_gs_telemetry_pack.h"
@@ -313,6 +314,9 @@ static obc_error_code_t sendOrPackNextTelemetry(telemetry_data_t *singleTelem, p
                                                                               // version of the current
                                                                               // piece of telemetry and its header
   uint32_t packedSingleTelemSize = 0;                                         // Size of the packed single telemetry and its header
+
+  telemetry_header_t *singleHeader;
+  singleHeader->length =
 
   // Pack the single telemetry into a uint8_t array
   if (packTelemetry(singleTelem, packedSingleTelem, sizeof(packedSingleTelem) / sizeof(uint8_t),

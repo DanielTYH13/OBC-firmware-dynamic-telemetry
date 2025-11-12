@@ -5,10 +5,10 @@
 #include <stdint.h>
 #include <stddef.h>
 
-enum Telemetry_Length{
-    [TELEM_OBC_TEMP] = sizeof(float),
-    [TELEM_OBC_STATE] = sizeof(uint8_t)
-};
+typedef enum {
+  //TODO add functionality
+
+} telemetry_data_length_t;
 
 typedef struct {
   union {

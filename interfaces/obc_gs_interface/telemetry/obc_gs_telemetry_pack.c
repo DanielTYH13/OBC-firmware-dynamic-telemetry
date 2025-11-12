@@ -20,7 +20,7 @@ static const telemetry_pack_func_t telemPackFns[] = {
     [TELEM_PONG] = packPong,
 };
 
-obc_gs_error_code_t packTelemetry(const telemetry_data_t *data, uint8_t *buffer, size_t len, uint32_t *numPacked) {
+obc_gs_error_code_t packTelemetry(const telemetry_data_t *telemData, const telemetry_header_t *headerData, uint8_t *buffer, size_t len, uint32_t *numPacked) {
   if (data == NULL || buffer == NULL || numPacked == NULL) {
     return OBC_GS_ERR_CODE_INVALID_ARG;
   }
@@ -34,23 +34,22 @@ obc_gs_error_code_t packTelemetry(const telemetry_data_t *data, uint8_t *buffer,
   }
 
   uint32_t offset = 0;  
-  Telemetry_Length TELEMETRY_LENGTH = data->id; 
  
   // Header start
 
-  packUint8(data->id, buffer, &offset); // Pack the telemetry ID
+  packUint8(telemData->id, buffer, &offset); // Pack the telemetry ID
 
-  packUint8(TELEMETRY_LENGTH, buffer, &offset); // Pack the length
+  packUint8(headerData->length, buffer, &offset); // Pack the length
 
-  packUint8((data->sequence) << 4, buffer, &offset); // Pack the sequence
+  packUint8(headerData->sequence, buffer, &offset); // Pack the sequence
 
   // Header end
 
   // Telemetry start
 
-  packUint32(data->timestamp, buffer, &offset);  // Pack the timestamp
+  packUint32(telemData->timestamp, buffer, &offset);  // Pack the timestamp
 
-  telemPackFns[data->id](data, buffer, &offset); // Pack the telemetry parameters
+  telemPackFns[telemData->id](data, buffer, &offset); // Pack the telemetry parameters
 
   // Telemetry end
 
