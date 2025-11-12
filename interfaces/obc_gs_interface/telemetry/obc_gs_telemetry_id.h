@@ -37,5 +37,4 @@ typedef enum {
   TELEM_EPS_STATE,
 
   TELEM_NUM_CSP_PACKETS_RCVD,
-  TELEM_PONG,
 } telemetry_data_id_t;

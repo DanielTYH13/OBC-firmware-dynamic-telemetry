@@ -5,11 +5,6 @@
 #include <stdint.h>
 #include <stddef.h>
 
-typedef enum {
-  //TODO add functionality
-
-} telemetry_data_length_t;
-
 typedef struct {
   union {
     // Temperature values
@@ -47,17 +42,9 @@ typedef struct {
   };
 
   telemetry_data_id_t id;
+  telemetry_data_length_t length;
   uint32_t timestamp;  // seconds since epoch
 
 } telemetry_data_t;
 
-typedef struct {
-  union {
-    uint8_t length;
-    uint8_t sequence;
-  }; 
-
-} telemetry_header_t;
-
 #define MAX_TELEMETRY_DATA_SIZE sizeof(telemetry_data_t)
-#define MAX_HEADER_DATA_SIZE sizeof(telemetry_header_t)
